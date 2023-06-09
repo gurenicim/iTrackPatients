@@ -18,44 +18,45 @@ import VisionKit
     @State private var mobile: String = String()
     @State var notes: String = String()
     @State var scans = [UIImage]()
-    @State private var showingExporter = false
-    
+    @State var isClicked: Bool = false
+    @State private var showingExporter: Bool = false
+    @State private var clearColor: Color = Color.clear
     @State private var isCameraShown: Bool = false
     @State private var isNotePageShown: Bool = false
     @FocusState var isInputActive
     
     func render(dirName: String, date: Date) -> URL {
-            // 1: Render Hello World with some modifiers
-            let renderer = ImageRenderer(content:
-                                            PDFView(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
-            )
-
-            // 2: Save it to our documents directory
+        // 1: Render Hello World with some modifiers
+        let renderer = ImageRenderer(content:
+                                        PDFView(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
+        )
+        
+        // 2: Save it to our documents directory
         let url = URL.documentsDirectory.appending(path:dirName + "-" + date.formatted(date: .numeric, time: .shortened) + ".pdf")
-
-            // 3: Start the rendering process
-            renderer.render { size, context in
-                // 4: Tell SwiftUI our PDF should be the same size as the views we're rendering
-                var box = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-
-                // 5: Create the CGContext for our PDF pages
-                guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
-                    return
-                }
-
-                // 6: Start a new PDF page
-                pdf.beginPDFPage(nil)
-
-                // 7: Render the SwiftUI view data onto the page
-                context(pdf)
-
-                // 8: End the page and close the file
-                pdf.endPDFPage()
-                pdf.closePDF()
+        
+        // 3: Start the rendering process
+        renderer.render { size, context in
+            // 4: Tell SwiftUI our PDF should be the same size as the views we're rendering
+            var box = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            
+            // 5: Create the CGContext for our PDF pages
+            guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
+                return
             }
-
-            return url
+            
+            // 6: Start a new PDF page
+            pdf.beginPDFPage(nil)
+            
+            // 7: Render the SwiftUI view data onto the page
+            context(pdf)
+            
+            // 8: End the page and close the file
+            pdf.endPDFPage()
+            pdf.closePDF()
         }
+        
+        return url
+    }
     
     var documentsUrl: URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -124,7 +125,7 @@ import VisionKit
                                         .aspectRatio(contentMode: .fill)
                                         .frame(minWidth: 0, maxWidth: 300, minHeight: 0, maxHeight: 300)
                                         .clipped()
-                                    .aspectRatio(1, contentMode: .fit)
+                                        .aspectRatio(1, contentMode: .fit)
                                     Button(action: {
                                         scans.remove(at: i)
                                     }, label: {
@@ -135,13 +136,13 @@ import VisionKit
                             }
                             HStack {
                                 Button {
-                                 isCameraShown.toggle()
-                                 } label: {
-                                 Label("Take Photo",systemImage: "camera.circle").background(inputBackgroundCreator(color: .indigo))
-                                 .labelStyle(.titleOnly)
-                                 }.padding(.vertical,16)
-                                 .padding(.horizontal,16)
-                                 .foregroundColor(Color.black)
+                                    isCameraShown.toggle()
+                                } label: {
+                                    Label("Take Photo",systemImage: "camera.circle").background(inputBackgroundCreator(color: .indigo))
+                                        .labelStyle(.titleOnly)
+                                }.padding(.vertical,16)
+                                    .padding(.horizontal,16)
+                                    .foregroundColor(Color.black)
                                 
                                 Button {
                                     isNotePageShown.toggle()
@@ -161,13 +162,35 @@ import VisionKit
                             }
                     }
                     Group {
-                        Button(action: {
-                        }, label: {
+                        HStack {
+                            Button(action: {
+                                if(isClicked) {
+                                    name = ""
+                                    surname = ""
+                                    id = ""
+                                    mobile = ""
+                                    notes = ""
+                                    scans.removeAll(keepingCapacity: false)
+                                    clearColor = .clear
+                                    isClicked.toggle()
+                                } else {
+                                    clearColor = .red
+                                    isClicked.toggle()
+                                }
+                            }, label: {
+                                Text ("Clear")
+                            })
+                            .background(inputBackgroundCreator(color: clearColor))
+                                .foregroundColor(Color.black)
+                                .disabled(name.isEmpty && surname.isEmpty && mobile.isEmpty && id.isEmpty)
+                                .padding(16)
+                            
                             ShareLink("Export PDF", item: render(dirName: name + surname + "-" + mobile, date: date))
-                        })
-                            .background(inputBackgroundCreator(color: .green))
-                            .foregroundColor(Color.black)
-                            .disabled(name.isEmpty || surname.isEmpty || mobile.isEmpty || id.isEmpty)
+                                .background(inputBackgroundCreator(color: .green))
+                                .foregroundColor(Color.black)
+                                .padding(16)
+                                .disabled((name.isEmpty || surname.isEmpty || mobile.isEmpty || id.isEmpty))
+                        }
                     }.frame(alignment: .bottom)
                         .onTapGesture {
                             isInputActive = false
@@ -209,24 +232,24 @@ extension DocumentCamera {
             self.parent = parent
         }
         public func documentCameraViewControllerDidCancel(
-                    _ controller: VNDocumentCameraViewController) {
-                        self.parent.isPresented.wrappedValue.dismiss()
+            _ controller: VNDocumentCameraViewController) {
+                self.parent.isPresented.wrappedValue.dismiss()
+            }
+        
+        public func documentCameraViewController(
+            _ controller: VNDocumentCameraViewController,
+            didFailWithError error: Error) {
+                self.parent.isPresented.wrappedValue.dismiss()
+            }
+        
+        public func documentCameraViewController(
+            _ controller: VNDocumentCameraViewController,
+            didFinishWith scan: VNDocumentCameraScan) {
+                for i in 0 ..< scan.pageCount {
+                    self.parent.scans.append(scan.imageOfPage(at: i))
                 }
-                
-                public func documentCameraViewController(
-                    _ controller: VNDocumentCameraViewController,
-                    didFailWithError error: Error) {
-                        self.parent.isPresented.wrappedValue.dismiss()
-                }
-                
-                public func documentCameraViewController(
-                    _ controller: VNDocumentCameraViewController,
-                    didFinishWith scan: VNDocumentCameraScan) {
-                        for i in 0 ..< scan.pageCount {
-                            self.parent.scans.append(scan.imageOfPage(at: i))
-                            }
-                        self.parent.isPresented.wrappedValue.dismiss()
-                }
+                self.parent.isPresented.wrappedValue.dismiss()
+            }
     }
     
 }
