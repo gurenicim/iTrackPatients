@@ -19,20 +19,33 @@ import VisionKit
     @State var notes: String = String()
     @State var scans = [UIImage]()
     @State var isClicked: Bool = false
-    @State private var showingExporter: Bool = false
+    @State private var showingShareLink: Bool = false
     @State private var clearColor: Color = Color.clear
     @State private var isCameraShown: Bool = false
     @State private var isNotePageShown: Bool = false
+    @State var pdfURL: URL = URL(fileURLWithPath: "null")
     @FocusState var isInputActive
     
-    func render(dirName: String, date: Date) -> URL {
+    func getDirName() -> String {
+        return self.name + self.surname + "-" + self.id
+    }
+    
+    func getFileName() -> String {
+        return self.name + self.surname + "-" + self.mobile + self.date.formatted(date: .numeric, time: .shortened) + ".pdf"
+    }
+    
+    func createPDFView () -> any View {
+        PDFView(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
+    }
+    
+    func render(dirName: String, content: PDFView) -> URL {
         // 1: Render Hello World with some modifiers
-        let renderer = ImageRenderer(content:
-                                        PDFView(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
-        )
-        
+        let renderer = ImageRenderer(content: content)
+                
         // 2: Save it to our documents directory
-        let url = URL.documentsDirectory.appending(path:dirName + "-" + date.formatted(date: .numeric, time: .shortened) + ".pdf")
+        let folderUrl = createDirWithName(dirName: dirName)
+        let fileUrl = folderUrl.appending(path:getFileName())
+        let url = URL.documentsDirectory.appending(path:dirName + "/" + date.formatted(date: .numeric, time: .shortened) + ".pdf")
         
         // 3: Start the rendering process
         renderer.render { size, context in
@@ -53,18 +66,22 @@ import VisionKit
             // 8: End the page and close the file
             pdf.endPDFPage()
             pdf.closePDF()
+            
+            /*do {
+                try fileUrl.dataRepresentation.write(to: fileUrl)
+            } catch {print(error)}*/
         }
         
         return url
     }
     
-    var documentsUrl: URL {
-        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    }
-    
-    private func createDirWithName(dirName: String) {
+    private func createDirWithName(dirName: String) -> URL {
         let pathUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(dirName, conformingTo: .folder)
-        try? FileManager.default.createDirectory(atPath: pathUrl.path, withIntermediateDirectories: true)
+        let folderExists = (try? pathUrl.checkResourceIsReachable()) ?? false
+        if !folderExists {
+            try? FileManager.default.createDirectory(atPath: pathUrl.path, withIntermediateDirectories: false)
+        }
+        return pathUrl
     }
     
     func inputBackgroundCreatorFromTrailing(color: Color) -> some View {
@@ -78,7 +95,7 @@ import VisionKit
     }
     
     var inputs: some View {
-        Section (header: Text("Hasta Bilgileri"), footer: Text("* fields are required").padding(16)) {
+        Section (header: Text("Basic Info"), footer: Text("* fields are required").padding(16)) {
             TextField("Name *", text: $name)
                 .tag(0)
                 .focused($isInputActive)
@@ -94,17 +111,17 @@ import VisionKit
             TextField("ID *", text: $id)
                 .tag(2)
                 .focused($isInputActive)
+                .keyboardType(.numberPad)
                 .background {
                     inputBackgroundCreatorFromTrailing(color: .red)
                 }.padding(8)
-            TextField("Mobile *", text: $mobile)
+            TextField("Phone *", text: $mobile)
                 .tag(3)
                 .focused($isInputActive)
                 .keyboardType(.numberPad)
                 .background {
                     inputBackgroundCreatorFromTrailing(color: .mint)
                 }.padding(8)
-            DatePicker(selection: $date, label: { Text("Date") }).padding(8)
         }
     }
     
@@ -115,6 +132,9 @@ import VisionKit
                     ScrollView {
                         VStack {
                             inputs
+                            DatePicker(selection: $date, label: { Text("Date") }).padding(8).onTapGesture {
+                                isInputActive = false
+                            }
                         }.padding(16)
                         VStack {
                             //Scans
@@ -172,6 +192,7 @@ import VisionKit
                                     notes = ""
                                     scans.removeAll(keepingCapacity: false)
                                     clearColor = .clear
+                                    showingShareLink = false
                                     isClicked.toggle()
                                 } else {
                                     clearColor = .red
@@ -185,11 +206,24 @@ import VisionKit
                                 .disabled(name.isEmpty && surname.isEmpty && mobile.isEmpty && id.isEmpty)
                                 .padding(16)
                             
-                            ShareLink("Export PDF", item: render(dirName: name + surname + "-" + mobile, date: date))
-                                .background(inputBackgroundCreator(color: .green))
+                            if !showingShareLink {
+                                Button(action: {
+                                    pdfURL = render(dirName: getDirName(), content: createPDFView() as! PDFView)
+                                    showingShareLink = true
+                                }, label: {
+                                    Text ("Create PDF")
+                                })
+                                .background(inputBackgroundCreator(color: clearColor))
                                 .foregroundColor(Color.black)
+                                .disabled(name.isEmpty && surname.isEmpty && mobile.isEmpty && id.isEmpty)
                                 .padding(16)
-                                .disabled((name.isEmpty || surname.isEmpty || mobile.isEmpty || id.isEmpty))
+                            } else {
+                                ShareLink("Export PDF", item: pdfURL)
+                                    .background(inputBackgroundCreator(color: .green))
+                                    .foregroundColor(Color.black)
+                                    .padding(16)
+                                    .disabled((name.isEmpty || surname.isEmpty || mobile.isEmpty || id.isEmpty) || pdfURL == URL(fileURLWithPath: "null"))
+                            }
                         }
                     }.frame(alignment: .bottom)
                         .onTapGesture {

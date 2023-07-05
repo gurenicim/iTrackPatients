@@ -14,8 +14,8 @@ struct PDFView: View {
     
     func inputBackgroundCreator(color: Color) -> some View {
         RoundedRectangle(cornerRadius: 50).fill(color.opacity(0.8))
-            .padding(.horizontal, -16)
-            .padding(.vertical,-8)
+            .padding(.horizontal, -40)
+            .padding(.vertical,-40)
     }
     
     var body: some View {
@@ -26,14 +26,14 @@ struct PDFView: View {
             HStack {
                 Text("Patient Record").font(.largeTitle)
             }
-            Text(name + " " + surname).font(.title).background(inputBackgroundCreator(color: .red)).padding(8).onTapGesture {
+            Text(name + " " + surname).font(.title).background(inputBackgroundCreator(color: .red)).padding().onTapGesture {
                 print(notes)
             }
             HStack {
-                Text("TCKN: " + id).background(RoundedRectangle(cornerRadius: 200).fill(Color.green.opacity(0.8))
+                Text("ID: " + id).background(RoundedRectangle(cornerRadius: 200).fill(Color.green.opacity(0.8))
                     .padding(.horizontal, -8)
                     .padding(.vertical,-8)).padding(8)
-                Text("Tel: " + mobile).background(RoundedRectangle(cornerRadius: 200).fill(Color.yellow.opacity(0.8))
+                Text("Phone: " + mobile).background(RoundedRectangle(cornerRadius: 200).fill(Color.yellow.opacity(0.8))
                     .padding(.horizontal, -8)
                     .padding(.vertical,-8)).padding(8)
             }
@@ -50,7 +50,7 @@ struct PDFView: View {
                     HStack {
                         Image(uiImage: scans[i])
                             .resizable()
-                            .aspectRatio(contentMode: .fill)
+                            .aspectRatio(contentMode: .fit)
                             .frame(minWidth: 0, maxWidth: 200, minHeight: 0, maxHeight: 300)
                             .clipped()
                             .aspectRatio(1, contentMode: .fit).background(inputBackgroundCreator(color: .indigo))

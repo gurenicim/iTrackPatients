@@ -17,6 +17,7 @@
 		CE006F312A33308E00932344 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F302A33308E00932344 /* PDFView.swift */; };
 		CE006F342A3330CD00932344 /* NewPatientInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F332A3330CD00932344 /* NewPatientInputView.swift */; };
 		CE006F362A3330E600932344 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F352A3330E600932344 /* NoteView.swift */; };
+		CE7D62A72A531F2000C5A422 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = CE7D62A62A531F2000C5A422 /* Zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		CE006F302A33308E00932344 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		CE006F332A3330CD00932344 /* NewPatientInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPatientInputView.swift; sourceTree = "<group>"; };
 		CE006F352A3330E600932344 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
+		CE7D62A42A531D4D00C5A422 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7D62A72A531F2000C5A422 /* Zip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +103,7 @@
 		CE006F012A332FD400932344 /* iTrackPatients */ = {
 			isa = PBXGroup;
 			children = (
+				CE7D62A42A531D4D00C5A422 /* Info.plist */,
 				CE006F322A3330B000932344 /* Pages */,
 				CE006F2D2A33304100932344 /* Components */,
 				CE006F022A332FD400932344 /* iTrackPatientsApp.swift */,
@@ -168,6 +172,9 @@
 			dependencies = (
 			);
 			name = iTrackPatients;
+			packageProductDependencies = (
+				CE7D62A62A531F2000C5A422 /* Zip */,
+			);
 			productName = iTrackPatients;
 			productReference = CE006EFF2A332FD400932344 /* iTrackPatients.app */;
 			productType = "com.apple.product-type.application";
@@ -240,6 +247,9 @@
 				Base,
 			);
 			mainGroup = CE006EF62A332FD400932344;
+			packageReferences = (
+				CE7D62A52A531F2000C5A422 /* XCRemoteSwiftPackageReference "Zip" */,
+			);
 			productRefGroup = CE006F002A332FD400932344 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -448,6 +458,7 @@
 				DEVELOPMENT_TEAM = Q55FUPDXJ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iTrackPatients/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need permission to scan documents.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -459,7 +470,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = grncm.iTrackPatients;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grncm.iTrackPatients;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -478,6 +489,7 @@
 				DEVELOPMENT_TEAM = Q55FUPDXJ2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iTrackPatients/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need permission to scan documents.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -489,7 +501,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = grncm.iTrackPatients;
+				PRODUCT_BUNDLE_IDENTIFIER = com.grncm.iTrackPatients;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -613,6 +625,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE7D62A52A531F2000C5A422 /* XCRemoteSwiftPackageReference "Zip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/marmelroy/Zip.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE7D62A62A531F2000C5A422 /* Zip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE7D62A52A531F2000C5A422 /* XCRemoteSwiftPackageReference "Zip" */;
+			productName = Zip;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE006EF72A332FD400932344 /* Project object */;
 }
