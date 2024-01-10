@@ -14,10 +14,19 @@
 		CE006F142A332FD500932344 /* iTrackPatientsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F132A332FD500932344 /* iTrackPatientsTests.swift */; };
 		CE006F1E2A332FD500932344 /* iTrackPatientsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F1D2A332FD500932344 /* iTrackPatientsUITests.swift */; };
 		CE006F202A332FD500932344 /* iTrackPatientsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F1F2A332FD500932344 /* iTrackPatientsUITestsLaunchTests.swift */; };
-		CE006F312A33308E00932344 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F302A33308E00932344 /* PDFView.swift */; };
+		CE006F312A33308E00932344 /* PDFViewX.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F302A33308E00932344 /* PDFViewX.swift */; };
 		CE006F342A3330CD00932344 /* NewPatientInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F332A3330CD00932344 /* NewPatientInputView.swift */; };
 		CE006F362A3330E600932344 /* NoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE006F352A3330E600932344 /* NoteView.swift */; };
 		CE7D62A72A531F2000C5A422 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = CE7D62A62A531F2000C5A422 /* Zip */; };
+		CE96F4FD2B4DBF5000C7EABD /* FileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96F4FC2B4DBF5000C7EABD /* FileView.swift */; };
+		CE96F4FF2B4DC0BE00C7EABD /* DocumentBrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96F4FE2B4DC0BE00C7EABD /* DocumentBrowseView.swift */; };
+		CE96F5012B4DC85E00C7EABD /* FileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96F5002B4DC85E00C7EABD /* FileModel.swift */; };
+		CEA430282B41A05D00E50F13 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA430272B41A05D00E50F13 /* BrowseView.swift */; };
+		CEA4302B2B41A0A500E50F13 /* PatientRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4302A2B41A0A500E50F13 /* PatientRecord.swift */; };
+		CEA4302D2B41A26900E50F13 /* FolderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4302C2B41A26900E50F13 /* FolderModel.swift */; };
+		CEA4302F2B41AB0000E50F13 /* FolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA4302E2B41AB0000E50F13 /* FolderView.swift */; };
+		CEF205C82B4EF80300D705BB /* PDFKitViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF205C72B4EF80300D705BB /* PDFKitViewComponent.swift */; };
+		CEF205CC2B4EFDC200D705BB /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF205CB2B4EFDC200D705BB /* PDFKitView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,10 +57,19 @@
 		CE006F192A332FD500932344 /* iTrackPatientsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iTrackPatientsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE006F1D2A332FD500932344 /* iTrackPatientsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTrackPatientsUITests.swift; sourceTree = "<group>"; };
 		CE006F1F2A332FD500932344 /* iTrackPatientsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTrackPatientsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		CE006F302A33308E00932344 /* PDFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
+		CE006F302A33308E00932344 /* PDFViewX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewX.swift; sourceTree = "<group>"; };
 		CE006F332A3330CD00932344 /* NewPatientInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPatientInputView.swift; sourceTree = "<group>"; };
 		CE006F352A3330E600932344 /* NoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteView.swift; sourceTree = "<group>"; };
 		CE7D62A42A531D4D00C5A422 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CE96F4FC2B4DBF5000C7EABD /* FileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileView.swift; sourceTree = "<group>"; };
+		CE96F4FE2B4DC0BE00C7EABD /* DocumentBrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentBrowseView.swift; sourceTree = "<group>"; };
+		CE96F5002B4DC85E00C7EABD /* FileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileModel.swift; sourceTree = "<group>"; };
+		CEA430272B41A05D00E50F13 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		CEA4302A2B41A0A500E50F13 /* PatientRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRecord.swift; sourceTree = "<group>"; };
+		CEA4302C2B41A26900E50F13 /* FolderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderModel.swift; sourceTree = "<group>"; };
+		CEA4302E2B41AB0000E50F13 /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
+		CEF205C72B4EF80300D705BB /* PDFKitViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitViewComponent.swift; sourceTree = "<group>"; };
+		CEF205CB2B4EFDC200D705BB /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +121,7 @@
 		CE006F012A332FD400932344 /* iTrackPatients */ = {
 			isa = PBXGroup;
 			children = (
+				CEA430292B41A08A00E50F13 /* Model */,
 				CE7D62A42A531D4D00C5A422 /* Info.plist */,
 				CE006F322A3330B000932344 /* Pages */,
 				CE006F2D2A33304100932344 /* Components */,
@@ -142,7 +161,10 @@
 		CE006F2D2A33304100932344 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				CE006F302A33308E00932344 /* PDFView.swift */,
+				CE006F302A33308E00932344 /* PDFViewX.swift */,
+				CEA4302E2B41AB0000E50F13 /* FolderView.swift */,
+				CE96F4FC2B4DBF5000C7EABD /* FileView.swift */,
+				CEF205C72B4EF80300D705BB /* PDFKitViewComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -152,8 +174,21 @@
 			children = (
 				CE006F332A3330CD00932344 /* NewPatientInputView.swift */,
 				CE006F352A3330E600932344 /* NoteView.swift */,
+				CEA430272B41A05D00E50F13 /* BrowseView.swift */,
+				CE96F4FE2B4DC0BE00C7EABD /* DocumentBrowseView.swift */,
+				CEF205CB2B4EFDC200D705BB /* PDFKitView.swift */,
 			);
 			path = Pages;
+			sourceTree = "<group>";
+		};
+		CEA430292B41A08A00E50F13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEA4302A2B41A0A500E50F13 /* PatientRecord.swift */,
+				CEA4302C2B41A26900E50F13 /* FolderModel.swift */,
+				CE96F5002B4DC85E00C7EABD /* FileModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,11 +327,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE006F312A33308E00932344 /* PDFView.swift in Sources */,
+				CE006F312A33308E00932344 /* PDFViewX.swift in Sources */,
+				CE96F4FF2B4DC0BE00C7EABD /* DocumentBrowseView.swift in Sources */,
+				CEA4302D2B41A26900E50F13 /* FolderModel.swift in Sources */,
 				CE006F362A3330E600932344 /* NoteView.swift in Sources */,
 				CE006F052A332FD400932344 /* ContentView.swift in Sources */,
 				CE006F342A3330CD00932344 /* NewPatientInputView.swift in Sources */,
+				CEA4302B2B41A0A500E50F13 /* PatientRecord.swift in Sources */,
+				CE96F5012B4DC85E00C7EABD /* FileModel.swift in Sources */,
+				CEA430282B41A05D00E50F13 /* BrowseView.swift in Sources */,
+				CEF205C82B4EF80300D705BB /* PDFKitViewComponent.swift in Sources */,
 				CE006F032A332FD400932344 /* iTrackPatientsApp.swift in Sources */,
+				CE96F4FD2B4DBF5000C7EABD /* FileView.swift in Sources */,
+				CEF205CC2B4EFDC200D705BB /* PDFKitView.swift in Sources */,
+				CEA4302F2B41AB0000E50F13 /* FolderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

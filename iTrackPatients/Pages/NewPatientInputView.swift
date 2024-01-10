@@ -35,17 +35,16 @@ import VisionKit
     }
     
     func createPDFView () -> any View {
-        PDFView(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
+        PDFViewX(name: name, surname: surname,mobile: mobile, id: id,notes: notes, date: $date, scans: scans)
     }
     
-    func render(dirName: String, content: PDFView) -> URL {
+    func render(dirName: String, content: PDFViewX) -> URL {
         // 1: Render Hello World with some modifiers
         let renderer = ImageRenderer(content: content)
                 
         // 2: Save it to our documents directory
         let folderUrl = createDirWithName(dirName: dirName)
-        let fileUrl = folderUrl.appending(path:getFileName())
-        let url = URL.documentsDirectory.appending(path:dirName + "/" + date.formatted(date: .numeric, time: .shortened) + ".pdf")
+        let url = URL.documentsDirectory.appending(path:dirName + "/" + date.formatted(date: .numeric, time: .omitted) + "-" + date.formatted(date: .omitted, time: .shortened) + ".pdf")
         
         // 3: Start the rendering process
         renderer.render { size, context in
@@ -67,9 +66,6 @@ import VisionKit
             pdf.endPDFPage()
             pdf.closePDF()
             
-            /*do {
-                try fileUrl.dataRepresentation.write(to: fileUrl)
-            } catch {print(error)}*/
         }
         
         return url
@@ -183,6 +179,10 @@ import VisionKit
                     }
                     Group {
                         HStack {
+                            NavigationLink(destination: BrowseView()) {
+                                Text ("Search").foregroundStyle(Color((UIColor(named: "MainTextColor")!)))
+
+                                }
                             Button(action: {
                                 if(isClicked) {
                                     name = ""
@@ -199,7 +199,7 @@ import VisionKit
                                     isClicked.toggle()
                                 }
                             }, label: {
-                                Text ("Clear")
+                                Text ("Clear").foregroundStyle(Color((UIColor(named: "MainTextColor")!)))
                             })
                             .background(inputBackgroundCreator(color: clearColor))
                                 .foregroundColor(Color.black)
@@ -208,10 +208,10 @@ import VisionKit
                             
                             if !showingShareLink {
                                 Button(action: {
-                                    pdfURL = render(dirName: getDirName(), content: createPDFView() as! PDFView)
+                                    pdfURL = render(dirName: getDirName(), content: createPDFView() as! PDFViewX)
                                     showingShareLink = true
                                 }, label: {
-                                    Text ("Create PDF")
+                                    Text ("Create PDF").foregroundStyle(Color((UIColor(named: "MainTextColor")!)))
                                 })
                                 .background(inputBackgroundCreator(color: clearColor))
                                 .foregroundColor(Color.black)
@@ -287,6 +287,17 @@ extension DocumentCamera {
     }
     
 }
+
+/*func getDocumentsDirectory() -> URL { // returns your application folder
+    let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    let documentsDirectory = paths[0]
+    return documentsDirectory
+}
+
+let path = getDocumentsDirectory().absoluteString.replacingOccurrences(of: "file://", with: "shareddocuments://")
+let url = URL(string: path)!
+
+UIApplication.shared.open(url)*/
 
 struct NewPatientInputView_Previews: PreviewProvider {
     static var previews: some View {

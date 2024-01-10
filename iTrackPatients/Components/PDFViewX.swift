@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PDFView: View {
+struct PDFViewX: View {
     var name = "", surname = "", mobile = "", id = "", notes = ""
     @Binding var date: Date
     var scans: [UIImage] = [UIImage]()
@@ -27,7 +27,6 @@ struct PDFView: View {
                 Text("Patient Record").font(.largeTitle)
             }
             Text(name + " " + surname).font(.title).background(inputBackgroundCreator(color: .red)).padding().onTapGesture {
-                print(notes)
             }
             HStack {
                 Text("ID: " + id).background(RoundedRectangle(cornerRadius: 200).fill(Color.green.opacity(0.8))
@@ -65,6 +64,6 @@ struct PDFView: View {
 struct PDFView_Previews: PreviewProvider {
     static var previews: some View {
         @State var date = Date()
-        PDFView(name: "Guren", surname: "Icim", mobile: "0542xxxxxxx", id: "55555555555",notes: "Hello, here is some notes...",date: $date)
+        PDFViewX(name: "Guren", surname: "Icim", mobile: "0542xxxxxxx", id: "55555555555",notes: "Hello, here is some notes...",date: $date)
     }
 }
